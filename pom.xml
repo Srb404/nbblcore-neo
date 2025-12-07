@@ -75,5 +75,11 @@
             <artifactId>gson</artifactId>
             <version>2.13.2</version>
         </dependency>
+        <dependency>
+            <groupId>dev.jorel</groupId>
+            <artifactId>commandapi-paper-core</artifactId>
+            <version>11.0.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>
