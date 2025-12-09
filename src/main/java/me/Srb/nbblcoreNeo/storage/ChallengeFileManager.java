@@ -19,8 +19,14 @@ public class ChallengeFileManager extends FileManager {
     private List<Challenge> challenges = new ArrayList<>();
     private final Type typeToken = new TypeToken<ArrayList<Challenge>>() {}.getType();
 
-    public ChallengeFileManager() {
+    private static ChallengeFileManager instance;
+
+    private ChallengeFileManager() {
         super("challenges.json");
+    }
+
+    public static ChallengeFileManager getInstance() {
+        return (instance == null) ? instance = new ChallengeFileManager() : instance;
     }
 
     @Override
@@ -30,6 +36,7 @@ public class ChallengeFileManager extends FileManager {
             challenges = gson.fromJson(reader, typeToken);
 
             if (challenges == null) challenges = new ArrayList<>();
+            LOGGER.info("File read");
             return true;
         } catch (IOException e) {
             LOGGER.severe("Failed to read file: " + path);
@@ -39,9 +46,7 @@ public class ChallengeFileManager extends FileManager {
                 return false;
             }
             LOGGER.severe("Done!");
-            LOGGER.info("Trying again to read...");
-            readFile();
-            return false;
+            return true;
         }
     }
 
