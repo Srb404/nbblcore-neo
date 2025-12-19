@@ -1,10 +1,8 @@
 package me.Srb.nbblcoreNeo;
 
 import lombok.Getter;
-import me.Srb.nbblcoreNeo.model.Challenge;
+import me.Srb.nbblcoreNeo.command.ChallengeCommand;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.Arrays;
 
 public final class nbblcoreNeo extends JavaPlugin {
 
@@ -13,5 +11,6 @@ public final class nbblcoreNeo extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
+        new ChallengeCommand().register();
     }
 }
