@@ -10,7 +10,7 @@ public abstract class FileManager {
     protected final File file;
     protected String path;
 
-    protected FileManager(String fileName) {
+    public FileManager(String fileName) {
         this.LOGGER = nbblcoreNeo.getPlugin().getLogger();
         this.path = nbblcoreNeo.getPlugin().getDataFolder().getAbsolutePath() + "/" + fileName;
         this.file = new File(path);

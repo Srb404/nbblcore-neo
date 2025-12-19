@@ -1,10 +1,11 @@
-package me.Srb.nbblcoreNeo.storage;
+package me.Srb.nbblcoreNeo.storage.challenge;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import lombok.Getter;
 import lombok.Setter;
 import me.Srb.nbblcoreNeo.model.Challenge;
+import me.Srb.nbblcoreNeo.storage.FileManager;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -25,7 +26,7 @@ public class ChallengeFileManager extends FileManager {
         super("challenges.json");
     }
 
-    public static ChallengeFileManager getInstance() {
+    protected static ChallengeFileManager getInstance() {
         return (instance == null) ? instance = new ChallengeFileManager() : instance;
     }
 
