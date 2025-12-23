@@ -24,14 +24,14 @@ public class ChallengeStorage {
 
     public Challenge read(String name) {
         for (Challenge challenge : challenges) {
-            if (challenge.getChallengeName().equalsIgnoreCase(name)) return challenge;
+            if (challenge.getName().equalsIgnoreCase(name)) return challenge;
         }
-        return Challenge.builder().challengeName("not-found").build();
+        return Challenge.builder().build();
     }
 
     public boolean update(String oldChallenge, Challenge newChallenge) {
         for (Challenge challenge : challenges) {
-            if (challenge.getChallengeName().equals(oldChallenge)) {
+            if (challenge.getName().equals(oldChallenge)) {
                 challenges.remove(challenge);
                 challenges.add(newChallenge);
                 return fileManager.saveFile();

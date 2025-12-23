@@ -12,6 +12,6 @@ public class Challenge {
 
     @Singular
     private List<Team> teams;
-    private String challengeName;
+    private String name;
     private int time;
 }
