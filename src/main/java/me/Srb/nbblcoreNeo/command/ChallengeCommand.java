@@ -1,13 +1,11 @@
 package me.Srb.nbblcoreNeo.command;
 
 import dev.jorel.commandapi.CommandAPICommand;
-import dev.jorel.commandapi.arguments.StringArgument;
-import me.Srb.nbblcoreNeo.challenge.ChallengeValidator;
+import me.Srb.nbblcoreNeo.command.challenge.CreateSubcommand;
+import me.Srb.nbblcoreNeo.command.challenge.ListSubcommand;
+import me.Srb.nbblcoreNeo.command.challenge.RemoveSubcommand;
 import me.Srb.nbblcoreNeo.model.Challenge;
-import me.Srb.nbblcoreNeo.model.Team;
 import me.Srb.nbblcoreNeo.storage.challenge.ChallengeStorage;
-
-import java.util.List;
 
 public class ChallengeCommand {
 
@@ -22,7 +20,7 @@ public class ChallengeCommand {
                         new ListSubcommand(challengeStorage).command()
                 )
                 .executes((sender, args) -> {
-                    sender.sendMessage("Poprawne użycie: /challenge <create|remove|list>");
+                    sender.sendMessage("Poprawne użycie: /challenge <create|remove|list|manage>");
                 }).register();
     }
 }

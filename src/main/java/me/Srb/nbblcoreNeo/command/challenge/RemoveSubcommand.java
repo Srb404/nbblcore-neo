@@ -1,17 +1,18 @@
-package me.Srb.nbblcoreNeo.command;
+package me.Srb.nbblcoreNeo.command.challenge;
 
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.StringArgument;
 import me.Srb.nbblcoreNeo.model.Challenge;
 import me.Srb.nbblcoreNeo.storage.challenge.ChallengeStorage;
 
-public class RemoveSubcommand {
+public class RemoveSubcommand implements Subcommand {
     public ChallengeStorage storage;
 
     public RemoveSubcommand(ChallengeStorage storage) {
         this.storage = storage;
     }
 
+    @Override
     public CommandAPICommand command() {
         return new CommandAPICommand("remove")
                 .withArguments(new StringArgument("name"))
