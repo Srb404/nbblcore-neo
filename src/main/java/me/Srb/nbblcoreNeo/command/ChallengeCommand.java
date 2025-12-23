@@ -17,63 +17,12 @@ public class ChallengeCommand {
     public void register() {
         new CommandAPICommand("challenge")
                 .withSubcommands(
-                        createSubcommand(),
-                        removeSubcommand(),
-                        listSubcommand()
+                        new CreateSubcommand(challengeStorage).command(),
+                        new RemoveSubcommand(challengeStorage).command(),
+                        new ListSubcommand(challengeStorage).command()
                 )
                 .executes((sender, args) -> {
                     sender.sendMessage("Poprawne użycie: /challenge <create|remove|list>");
                 }).register();
-    }
-
-    private CommandAPICommand createSubcommand() {
-        return new CommandAPICommand("create")
-                .withArguments(new StringArgument("name"))
-                .executes((sender, args) -> {
-                    String name = (String) args.get("name");
-                    challenge = Challenge.builder()
-                            .name(name)
-                            .build();
-                    challengeStorage.create(challenge);
-                    sender.sendMessage("Utworzono wyzwanie: " + name);
-                });
-    }
-
-    private CommandAPICommand removeSubcommand() {
-        return new CommandAPICommand("remove")
-                .withArguments(new StringArgument("name"))
-                .executes((sender, args) -> {
-                    String name = (String) args.get("name");
-                    challenge = challengeStorage.read(name);
-                    challengeStorage.delete(challenge);
-                });
-    }
-
-    private CommandAPICommand listSubcommand() {
-        return new CommandAPICommand("list")
-                .executes((sender, args) -> {
-                    List<Challenge> challenges = challengeStorage.getChallenges();
-                    sender.sendMessage("=== Challenges Info ===");
-                    for (Challenge challenge : challenges) {
-                        sender.sendMessage("# Wyzwanie: " + challenge.getName());
-                        if (challenge.getTime() == 0) sender.sendMessage("Czas trwania: bez limitu");
-                        else sender.sendMessage("Czas trwania: " + challenge.getTime());
-                        ChallengeValidator validator = new ChallengeValidator();
-                        if (validator.isReady(challenge)) sender.sendMessage("Gotowe: TAK");
-                        else {
-                            sender.sendMessage("Gotowe: NIE");
-                            sender.sendMessage("Problemy: " + validator.validate(challenge).toString());
-                        }
-                        int counter = 0;
-                        for (Team team : challenge.getTeams()) {
-                            sender.sendMessage("---");
-                            sender.sendMessage("Drużyna numer " + ++counter);
-                            sender.sendMessage("Gracze: " + team.getPlayers());
-                            sender.sendMessage("Start: "  + team.getStartLocation());
-                            sender.sendMessage("End: " + team.getEndLocation());
-                            sender.sendMessage("---");
-                        }
-                    }
-                });
     }
 }
