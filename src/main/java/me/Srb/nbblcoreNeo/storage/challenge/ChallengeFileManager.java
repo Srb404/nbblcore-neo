@@ -24,6 +24,7 @@ public class ChallengeFileManager extends FileManager {
 
     private ChallengeFileManager() {
         super("challenges.json");
+        readFile();
     }
 
     protected static ChallengeFileManager getInstance() {
