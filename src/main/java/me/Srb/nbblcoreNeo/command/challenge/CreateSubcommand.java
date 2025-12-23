@@ -24,7 +24,7 @@ public class CreateSubcommand implements Subcommand {
                             .build();
 
                     storage.create(challenge);
-                    sender.sendMessage("Utworzono wyzwanie: " + name);
+                    sender.sendMessage("§aUtworzono wyzwanie: §f" + name);
                 });
     }
 }

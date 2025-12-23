@@ -21,7 +21,7 @@ public class RemoveSubcommand implements Subcommand {
 
                     Challenge challenge = storage.read(name);
                     if (challenge == null) {
-                        sender.sendMessage("§cNie znaleziono wyzwania: " + name);
+                        sender.sendMessage("§cNie znaleziono wyzwania: §f" + name);
                         return;
                     }
 
