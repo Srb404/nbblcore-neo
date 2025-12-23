@@ -7,22 +7,29 @@ import java.util.List;
 
 public class ChallengeStorage {
 
-    private final ChallengeFileManager fileManager;
     @Getter
     private final List<Challenge> challenges;
+    private final ChallengeFileManager fileManager;
 
     public ChallengeStorage() {
         fileManager = ChallengeFileManager.getInstance();
         challenges = fileManager.getChallenges();
     }
 
-    public boolean addChallenge(Challenge challenge) {
+    public boolean create(Challenge challenge) {
         challenges.add(challenge);
         fileManager.setChallenges(challenges);
         return fileManager.saveFile();
     }
 
-    public boolean updateChallenge(String oldChallenge, Challenge newChallenge) {
+    public Challenge read(String name) {
+        for (Challenge challenge : challenges) {
+            if (challenge.getChallengeName().equalsIgnoreCase(name)) return challenge;
+        }
+        return Challenge.builder().challengeName("not-found").build();
+    }
+
+    public boolean update(String oldChallenge, Challenge newChallenge) {
         for (Challenge challenge : challenges) {
             if (challenge.getChallengeName().equals(oldChallenge)) {
                 challenges.remove(challenge);
@@ -33,17 +40,9 @@ public class ChallengeStorage {
         return false;
     }
 
-    public boolean removeChallenge(Challenge challenge) {
+    public boolean delete(Challenge challenge) {
         challenges.remove(challenge);
         fileManager.setChallenges(challenges);
         return fileManager.saveFile();
     }
-
-    public Challenge getChallenge(String name) {
-        for (Challenge challenge : challenges) {
-            if (challenge.getChallengeName().equalsIgnoreCase(name)) return challenge;
-        }
-        return Challenge.builder().challengeName("not-found").build();
-    }
-
 }

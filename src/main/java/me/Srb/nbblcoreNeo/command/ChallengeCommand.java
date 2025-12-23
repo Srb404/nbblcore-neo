@@ -33,7 +33,7 @@ public class ChallengeCommand {
                     challenge = Challenge.builder()
                             .challengeName(name)
                             .build();
-                    challengeStorage.addChallenge(challenge);
+                    challengeStorage.create(challenge);
                     sender.sendMessage("Utworzono wyzwanie: " + name);
                 });
     }
@@ -43,8 +43,8 @@ public class ChallengeCommand {
                 .withArguments(new StringArgument("name"))
                 .executes((sender, args) -> {
                     String name = (String) args.get("name");
-                    challenge = challengeStorage.getChallenge(name);
-                    challengeStorage.removeChallenge(challenge);
+                    challenge = challengeStorage.read(name);
+                    challengeStorage.delete(challenge);
                 });
     }
 
