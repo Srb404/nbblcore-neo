@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.Srb</groupId>
@@ -16,9 +17,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <!-- ===================== BUILD ===================== -->
     <build>
         <defaultGoal>clean package</defaultGoal>
+
         <plugins>
+            <!-- Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -40,10 +44,20 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+
+            <!-- Shade (Triumph GUI relocation) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.5.3</version>
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>dev.triumphteam.gui</pattern>
+                            <shadedPattern>me.Srb.nbblcore.gui</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -54,6 +68,7 @@
                 </executions>
             </plugin>
         </plugins>
+
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -62,42 +77,65 @@
         </resources>
     </build>
 
+    <!-- ===================== REPOSITORIES ===================== -->
     <repositories>
         <repository>
             <id>spigotmc-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+
+        <repository>
+            <id>triumph-repo</id>
+            <url>https://repo.triumphteam.dev/snapshots</url>
+        </repository>
     </repositories>
 
+    <!-- ===================== DEPENDENCIES ===================== -->
     <dependencies>
+        <!-- Spigot API -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.21-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.38</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Gson -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.13.2</version>
         </dependency>
+
+        <!-- CommandAPI -->
         <dependency>
             <groupId>dev.jorel</groupId>
             <artifactId>commandapi-spigot-core</artifactId>
             <version>11.0.0</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>dev.jorel</groupId>
             <artifactId>commandapi-spigot-annotations</artifactId>
             <version>11.0.0</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Triumph GUI -->
+        <dependency>
+            <groupId>dev.triumphteam</groupId>
+            <artifactId>triumph-gui</artifactId>
+            <version>3.1.10</version>
+        </dependency>
     </dependencies>
+
 </project>
