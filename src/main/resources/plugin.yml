@@ -2,4 +2,9 @@ name: nbblcore-neo
 version: '1.0-SNAPSHOT'
 main: me.Srb.nbblcoreNeo.nbblcoreNeo
 api-version: '1.21'
-depend: [CommandAPI]
+dependencies:
+  server:
+    CommandAPI:
+      load: BEFORE
+      required: true
+      join-classpath: true

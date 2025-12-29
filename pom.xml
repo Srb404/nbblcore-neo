@@ -22,6 +22,7 @@
         <defaultGoal>clean package</defaultGoal>
 
         <plugins>
+
             <!-- Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -33,8 +34,8 @@
                     <annotationProcessorPaths>
                         <path>
                             <groupId>dev.jorel</groupId>
-                            <artifactId>commandapi-spigot-annotations</artifactId>
-                            <version>11.0.0</version>
+                            <artifactId>commandapi-paper-annotations</artifactId>
+                            <version>11.1.0</version>
                         </path>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -45,16 +46,16 @@
                 </configuration>
             </plugin>
 
-            <!-- Shade (Triumph GUI relocation) -->
+            <!-- Shade -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.5.3</version>
+                <version>3.6.0</version>
                 <configuration>
                     <relocations>
                         <relocation>
                             <pattern>dev.triumphteam.gui</pattern>
-                            <shadedPattern>me.Srb.nbblcore.gui</shadedPattern>
+                            <shadedPattern>me.Srb.nbblcoreNeo.gui</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
@@ -67,6 +68,30 @@
                     </execution>
                 </executions>
             </plugin>
+
+
+            <!-- Auto-copy -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <copy file="${project.build.directory}/${project.build.finalName}.jar"
+                                      todir="C:/Users/jakub/Desktop/mc-server/plugins"
+                                      overwrite="true"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
 
         <resources>
@@ -80,23 +105,39 @@
     <!-- ===================== REPOSITORIES ===================== -->
     <repositories>
         <repository>
-            <id>spigotmc-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
 
         <repository>
-            <id>triumph-repo</id>
-            <url>https://repo.triumphteam.dev/snapshots</url>
+            <id>triumph</id>
+            <url>https://repo.triumphteam.dev/releases</url>
         </repository>
     </repositories>
 
     <!-- ===================== DEPENDENCIES ===================== -->
     <dependencies>
-        <!-- Spigot API -->
+
+        <!-- Paper -->
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.21-R0.1-SNAPSHOT</version>
+            <groupId>io.papermc.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>1.21.1-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- CommandAPI -->
+        <dependency>
+            <groupId>dev.jorel</groupId>
+            <artifactId>commandapi-paper-core</artifactId>
+            <version>11.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>dev.jorel</groupId>
+            <artifactId>commandapi-paper-annotations</artifactId>
+            <version>11.1.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -115,27 +156,12 @@
             <version>2.13.2</version>
         </dependency>
 
-        <!-- CommandAPI -->
-        <dependency>
-            <groupId>dev.jorel</groupId>
-            <artifactId>commandapi-spigot-core</artifactId>
-            <version>11.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>dev.jorel</groupId>
-            <artifactId>commandapi-spigot-annotations</artifactId>
-            <version>11.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- Triumph GUI -->
+        <!-- Triumph GUI (MUSI być shaded) -->
         <dependency>
             <groupId>dev.triumphteam</groupId>
             <artifactId>triumph-gui</artifactId>
-            <version>3.1.10</version>
+            <version>3.1.13</version>
         </dependency>
-    </dependencies>
 
+    </dependencies>
 </project>
