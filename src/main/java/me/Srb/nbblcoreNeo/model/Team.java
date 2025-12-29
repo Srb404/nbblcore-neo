@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,10 +15,10 @@ import java.util.UUID;
 @Builder
 public class Team {
 
-    @Singular
-    private List<UUID> players;
     private SerializableLocation startLocation;
     private SerializableLocation endLocation;
+    @Singular
+    private List<UUID> players;
 
     public static Team getDummyData() {
         World world = Bukkit.getWorld("world");

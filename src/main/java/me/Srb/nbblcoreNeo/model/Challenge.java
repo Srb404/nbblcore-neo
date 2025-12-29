@@ -10,8 +10,8 @@ import java.util.List;
 @Builder
 public class Challenge {
 
-    @Singular
-    private List<Team> teams;
     private String name;
     private int time;
+    @Singular
+    private List<Team> teams;
 }
