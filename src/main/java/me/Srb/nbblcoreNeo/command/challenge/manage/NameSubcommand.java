@@ -2,13 +2,9 @@ package me.Srb.nbblcoreNeo.command.challenge.manage;
 
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.StringArgument;
-import me.Srb.nbblcoreNeo.challenge.ChallengeRequirement;
-import me.Srb.nbblcoreNeo.challenge.ChallengeValidator;
 import me.Srb.nbblcoreNeo.command.challenge.Subcommand;
 import me.Srb.nbblcoreNeo.model.Challenge;
 import me.Srb.nbblcoreNeo.storage.challenge.ChallengeStorage;
-
-import java.util.EnumSet;
 
 public class NameSubcommand implements Subcommand {
 

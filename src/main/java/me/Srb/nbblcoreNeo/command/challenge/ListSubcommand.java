@@ -1,7 +1,7 @@
 package me.Srb.nbblcoreNeo.command.challenge;
 
 import dev.jorel.commandapi.CommandAPICommand;
-import me.Srb.nbblcoreNeo.challenge.ChallengeValidator;
+import me.Srb.nbblcoreNeo.validation.ChallengeValidator;
 import me.Srb.nbblcoreNeo.model.Challenge;
 import me.Srb.nbblcoreNeo.model.Team;
 import me.Srb.nbblcoreNeo.storage.challenge.ChallengeStorage;

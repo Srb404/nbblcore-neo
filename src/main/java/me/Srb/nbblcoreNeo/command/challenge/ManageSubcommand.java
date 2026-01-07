@@ -2,7 +2,7 @@ package me.Srb.nbblcoreNeo.command.challenge;
 
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.StringArgument;
-import me.Srb.nbblcoreNeo.challenge.ChallengeManageGUI;
+import me.Srb.nbblcoreNeo.ui.ChallengeManageGUI;
 import me.Srb.nbblcoreNeo.command.challenge.manage.NameSubcommand;
 import me.Srb.nbblcoreNeo.command.challenge.manage.TeamSubcommand;
 import me.Srb.nbblcoreNeo.command.challenge.manage.TimeSubcommand;

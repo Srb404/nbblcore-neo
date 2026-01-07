@@ -1,4 +1,4 @@
-package me.Srb.nbblcoreNeo.challenge;
+package me.Srb.nbblcoreNeo.validation;
 
 import me.Srb.nbblcoreNeo.model.Challenge;
 import me.Srb.nbblcoreNeo.model.Team;

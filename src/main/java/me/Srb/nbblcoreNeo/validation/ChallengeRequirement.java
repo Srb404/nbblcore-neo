@@ -1,4 +1,4 @@
-package me.Srb.nbblcoreNeo.challenge;
+package me.Srb.nbblcoreNeo.validation;
 
 public enum ChallengeRequirement {
     NAME_SET,

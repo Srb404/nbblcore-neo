@@ -1,4 +1,4 @@
-package me.Srb.nbblcoreNeo.challenge;
+package me.Srb.nbblcoreNeo.ui;
 
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
