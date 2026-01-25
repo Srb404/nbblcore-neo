@@ -6,7 +6,6 @@ import me.Srb.nbblcoreNeo.model.Challenge;
 import me.Srb.nbblcoreNeo.storage.challenge.ChallengeStorage;
 
 public class CreateSubcommand extends Subcommand {
-
     public CreateSubcommand(ChallengeStorage storage) {
         super(storage);
     }
@@ -22,8 +21,8 @@ public class CreateSubcommand extends Subcommand {
                             .name(name)
                             .build();
 
-                    storage.create(challenge);
-                    sender.sendMessage("§aUtworzono wyzwanie: §f" + name);
+                    boolean success = storage.create(challenge);
+                    sendResult(sender, success, "§aUtworzono wyzwanie: §f" + name);
                 });
     }
 }

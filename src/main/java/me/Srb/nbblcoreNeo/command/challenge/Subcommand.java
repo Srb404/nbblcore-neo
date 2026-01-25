@@ -21,4 +21,12 @@ public abstract class Subcommand {
         }
         return challenge;
     }
+
+    protected void sendResult(CommandSender sender, boolean success, String successMsg) {
+        if (success) {
+            sender.sendMessage(successMsg);
+        } else {
+            sender.sendMessage("§cWystąpił błąd podczas zapisu danych.");
+        }
+    }
 }

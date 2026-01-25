@@ -23,13 +23,13 @@ public class TimeSubcommand extends Subcommand {
                     Challenge challenge = getOrFail(sender, name);
                     if (challenge == null) return;
 
-                    storage.update(name, Challenge.builder()
+                    boolean success = storage.update(name, Challenge.builder()
                             .name(challenge.getName())
                             .time(newTime)
                             .teams(challenge.getTeams())
                             .build()
                     );
-                    sender.sendMessage("§aZmieniono czas wyzwania na: §f" + newTime);
+                    sendResult(sender, success, "§aZmieniono czas wyzwania na: §f" + newTime);
                 });
     }
 }

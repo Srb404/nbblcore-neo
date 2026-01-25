@@ -71,13 +71,13 @@ public class TeamSubcommand extends Subcommand {
 
                     teams.set(teamId, newTeam);
 
-                    storage.update(challengeName, Challenge.builder()
+                    boolean success = storage.update(challengeName, Challenge.builder()
                             .name(challenge.getName())
                             .time(challenge.getTime())
                             .teams(teams)
                             .build());
 
-                    sender.sendMessage("§aDodano gracza §e" + player.getName() +
+                    sendResult(sender, success, "§aDodano gracza §e" + player.getName() +
                             " §ado drużyny §e" + teamId);
                 });
     }

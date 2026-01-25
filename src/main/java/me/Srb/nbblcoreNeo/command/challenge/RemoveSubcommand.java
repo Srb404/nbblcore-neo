@@ -21,8 +21,8 @@ public class RemoveSubcommand extends Subcommand {
                     Challenge challenge = getOrFail(sender, name);
                     if (challenge == null) return;
 
-                    storage.delete(challenge);
-                    sender.sendMessage("§aUsunięto wyzwanie: §f" + name);
+                    boolean success = storage.delete(challenge);
+                    sendResult(sender, success, "§aUsunięto wyzwanie: §f" + name);
                 });
     }
 }

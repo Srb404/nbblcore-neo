@@ -23,13 +23,13 @@ public class NameSubcommand extends Subcommand {
                     Challenge challenge = getOrFail(sender, oldName);
                     if (challenge == null) return;
 
-                    storage.update(oldName, Challenge.builder()
+                    boolean success = storage.update(oldName, Challenge.builder()
                             .name(newName)
                             .time(challenge.getTime())
                             .teams(challenge.getTeams())
                             .build()
                     );
-                    sender.sendMessage("§aZmieniono nazwę wyzwania §7" + oldName + "§a na §f" + newName);
+                    sendResult(sender, success, "§aZmieniono nazwę wyzwania §7" + oldName + "§a na §f" + newName);
                 });
     }
 }
