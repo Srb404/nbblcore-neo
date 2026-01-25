@@ -15,6 +15,16 @@
     <properties>
         <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Dependency versions -->
+        <paper.version>1.21.1-R0.1-SNAPSHOT</paper.version>
+        <commandapi.version>11.1.0</commandapi.version>
+        <lombok.version>1.18.38</lombok.version>
+        <triumph-gui.version>3.1.13</triumph-gui.version>
+
+        <!-- Plugin versions -->
+        <maven-compiler.version>3.13.0</maven-compiler.version>
+        <maven-shade.version>3.6.0</maven-shade.version>
     </properties>
 
     <!-- ===================== BUILD ===================== -->
@@ -27,7 +37,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.13.0</version>
+                <version>${maven-compiler.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -35,12 +45,12 @@
                         <path>
                             <groupId>dev.jorel</groupId>
                             <artifactId>commandapi-paper-annotations</artifactId>
-                            <version>11.1.0</version>
+                            <version>${commandapi.version}</version>
                         </path>
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>1.18.38</version>
+                            <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
@@ -50,14 +60,26 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.6.0</version>
+                <version>${maven-shade.version}</version>
                 <configuration>
+                    <minimizeJar>true</minimizeJar>
                     <relocations>
                         <relocation>
                             <pattern>dev.triumphteam.gui</pattern>
-                            <shadedPattern>me.Srb.nbblcoreNeo.gui</shadedPattern>
+                            <shadedPattern>me.Srb.nbblcoreNeo.lib.gui</shadedPattern>
                         </relocation>
                     </relocations>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/*.SF</exclude>
+                                <exclude>META-INF/*.DSA</exclude>
+                                <exclude>META-INF/*.RSA</exclude>
+                                <exclude>META-INF/MANIFEST.MF</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
                 </configuration>
                 <executions>
                     <execution>
@@ -65,29 +87,6 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-
-            <!-- Auto-copy -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <copy file="${project.build.directory}/${project.build.finalName}.jar"
-                                      todir="C:/Users/jakub/Desktop/mc-server/plugins"
-                                      overwrite="true"/>
-                            </target>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -101,6 +100,41 @@
             </resource>
         </resources>
     </build>
+
+    <!-- ===================== PROFILES ===================== -->
+    <profiles>
+        <!-- Profil do lokalnego deploymentu - aktywuj przez: mvn package -Plocal-deploy -->
+        <profile>
+            <id>local-deploy</id>
+            <properties>
+                <server.plugins.dir>C:/Users/jakub/Desktop/mc-server/plugins</server.plugins.dir>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <copy file="${project.build.directory}/${project.build.finalName}.jar"
+                                              todir="${server.plugins.dir}"
+                                              overwrite="true"/>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <!-- ===================== REPOSITORIES ===================== -->
     <repositories>
@@ -122,7 +156,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.21.1-R0.1-SNAPSHOT</version>
+            <version>${paper.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -130,14 +164,14 @@
         <dependency>
             <groupId>dev.jorel</groupId>
             <artifactId>commandapi-paper-core</artifactId>
-            <version>11.0.0</version>
+            <version>${commandapi.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>dev.jorel</groupId>
             <artifactId>commandapi-paper-annotations</artifactId>
-            <version>11.1.0</version>
+            <version>${commandapi.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -145,22 +179,15 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.38</version>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Gson -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.13.2</version>
-        </dependency>
-
-        <!-- Triumph GUI (MUSI być shaded) -->
+        <!-- Triumph GUI (shaded) -->
         <dependency>
             <groupId>dev.triumphteam</groupId>
             <artifactId>triumph-gui</artifactId>
-            <version>3.1.13</version>
+            <version>${triumph-gui.version}</version>
         </dependency>
 
     </dependencies>

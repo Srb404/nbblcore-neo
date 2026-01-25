@@ -1,7 +1,11 @@
 name: nbblcore-neo
-version: '1.0-SNAPSHOT'
-main: me.Srb.nbblcoreNeo.nbblcoreNeo
+version: '${project.version}'
+main: me.Srb.nbblcoreNeo.NbblcoreNeo
 api-version: '1.21'
+description: Plugin do zarządzania wyzwaniami
+authors: [Srb]
+prefix: NBBL
+
 dependencies:
   server:
     CommandAPI:
