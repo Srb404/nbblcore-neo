@@ -1,6 +1,7 @@
 package me.Srb.nbblcoreNeo.command.challenge;
 
 import dev.jorel.commandapi.CommandAPICommand;
+import me.Srb.nbblcoreNeo.command.Subcommand;
 import me.Srb.nbblcoreNeo.validation.ChallengeValidator;
 import me.Srb.nbblcoreNeo.model.Challenge;
 import me.Srb.nbblcoreNeo.model.Team;
@@ -9,10 +10,10 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-public class ListSubcommand extends Subcommand {
+public class ChallengeListSub extends Subcommand {
     private final ChallengeValidator validator = new ChallengeValidator();
 
-    public ListSubcommand(ChallengeStorage storage) {
+    public ChallengeListSub(ChallengeStorage storage) {
         super(storage);
     }
 

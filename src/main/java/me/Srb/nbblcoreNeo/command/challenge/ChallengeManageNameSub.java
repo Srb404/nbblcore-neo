@@ -1,14 +1,14 @@
-package me.Srb.nbblcoreNeo.command.challenge.manage;
+package me.Srb.nbblcoreNeo.command.challenge;
 
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.StringArgument;
-import me.Srb.nbblcoreNeo.command.challenge.Subcommand;
+import me.Srb.nbblcoreNeo.command.Subcommand;
 import me.Srb.nbblcoreNeo.model.Challenge;
 import me.Srb.nbblcoreNeo.storage.challenge.ChallengeStorage;
 
-public class NameSubcommand extends Subcommand {
+public class ChallengeManageNameSub extends Subcommand {
 
-    public NameSubcommand(ChallengeStorage storage) {
+    public ChallengeManageNameSub(ChallengeStorage storage) {
         super(storage);
     }
 

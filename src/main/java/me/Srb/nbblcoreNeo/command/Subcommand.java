@@ -1,4 +1,4 @@
-package me.Srb.nbblcoreNeo.command.challenge;
+package me.Srb.nbblcoreNeo.command;
 
 import dev.jorel.commandapi.CommandAPICommand;
 import me.Srb.nbblcoreNeo.model.Challenge;

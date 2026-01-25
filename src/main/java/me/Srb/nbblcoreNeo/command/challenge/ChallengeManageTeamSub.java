@@ -1,9 +1,9 @@
-package me.Srb.nbblcoreNeo.command.challenge.manage;
+package me.Srb.nbblcoreNeo.command.challenge;
 
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.EntitySelectorArgument;
 import dev.jorel.commandapi.arguments.IntegerArgument;
-import me.Srb.nbblcoreNeo.command.challenge.Subcommand;
+import me.Srb.nbblcoreNeo.command.Subcommand;
 import me.Srb.nbblcoreNeo.model.Challenge;
 import me.Srb.nbblcoreNeo.model.Team;
 import me.Srb.nbblcoreNeo.storage.challenge.ChallengeStorage;
@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class TeamSubcommand extends Subcommand {
+public class ChallengeManageTeamSub extends Subcommand {
 
-    public TeamSubcommand(ChallengeStorage storage) {
+    public ChallengeManageTeamSub(ChallengeStorage storage) {
         super(storage);
     }
 

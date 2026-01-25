@@ -2,16 +2,14 @@ package me.Srb.nbblcoreNeo.command.challenge;
 
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.StringArgument;
+import me.Srb.nbblcoreNeo.command.Subcommand;
 import me.Srb.nbblcoreNeo.ui.ChallengeManageGUI;
-import me.Srb.nbblcoreNeo.command.challenge.manage.NameSubcommand;
-import me.Srb.nbblcoreNeo.command.challenge.manage.TeamSubcommand;
-import me.Srb.nbblcoreNeo.command.challenge.manage.TimeSubcommand;
 import me.Srb.nbblcoreNeo.model.Challenge;
 import me.Srb.nbblcoreNeo.storage.challenge.ChallengeStorage;
 
-public class ManageSubcommand extends Subcommand {
+public class ChallengeManageSub extends Subcommand {
 
-    public ManageSubcommand(ChallengeStorage storage) {
+    public ChallengeManageSub(ChallengeStorage storage) {
         super(storage);
     }
 
@@ -19,9 +17,9 @@ public class ManageSubcommand extends Subcommand {
     public CommandAPICommand command() {
         return new CommandAPICommand("manage")
                 .withArguments(new StringArgument("challengeName"))
-                .withSubcommand(new NameSubcommand(storage).command())
-                .withSubcommand(new TimeSubcommand(storage).command())
-                .withSubcommand(new TeamSubcommand(storage).command())
+                .withSubcommand(new ChallengeManageNameSub(storage).command())
+                .withSubcommand(new ChallengeManageTimeSub(storage).command())
+                .withSubcommand(new ChallengeManageTeamSub(storage).command())
                 .executesConsole((sender, args) -> {
                     sender.sendMessage("§cTa komenda wywołuje GUI. Musisz być w grze, aby jej użyć.");
                 })
