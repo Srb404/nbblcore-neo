@@ -6,7 +6,7 @@ import me.Srb.nbblcoreNeo.model.Challenge;
 import me.Srb.nbblcoreNeo.storage.challenge.ChallengeStorage;
 
 public class CreateSubcommand implements Subcommand {
-    public ChallengeStorage storage;
+    private final ChallengeStorage storage;
 
     public CreateSubcommand(ChallengeStorage storage) {
         this.storage = storage;

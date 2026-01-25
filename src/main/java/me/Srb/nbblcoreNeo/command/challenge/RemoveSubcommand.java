@@ -6,7 +6,7 @@ import me.Srb.nbblcoreNeo.model.Challenge;
 import me.Srb.nbblcoreNeo.storage.challenge.ChallengeStorage;
 
 public class RemoveSubcommand implements Subcommand {
-    public ChallengeStorage storage;
+    private final ChallengeStorage storage;
 
     public RemoveSubcommand(ChallengeStorage storage) {
         this.storage = storage;

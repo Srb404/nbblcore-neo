@@ -26,7 +26,7 @@ public class ChallengeStorage {
         for (Challenge challenge : challenges) {
             if (challenge.getName().equalsIgnoreCase(name)) return challenge;
         }
-        return Challenge.builder().build();
+        return null;
     }
 
     public boolean update(String oldChallenge, Challenge newChallenge) {
