@@ -17,23 +17,30 @@ public class ChallengeStorage {
     }
 
     public boolean create(Challenge challenge) {
+        if (exists(challenge.getName())) {
+            return false;
+        }
         challenges.add(challenge);
-        fileManager.setChallenges(challenges);
         return fileManager.saveFile();
     }
 
     public Challenge read(String name) {
         for (Challenge challenge : challenges) {
-            if (challenge.getName().equalsIgnoreCase(name)) return challenge;
+            if (challenge.getName().equalsIgnoreCase(name)) {
+                return challenge;
+            }
         }
         return null;
     }
 
-    public boolean update(String oldChallenge, Challenge newChallenge) {
-        for (Challenge challenge : challenges) {
-            if (challenge.getName().equals(oldChallenge)) {
-                challenges.remove(challenge);
-                challenges.add(newChallenge);
+    public boolean exists(String name) {
+        return read(name) != null;
+    }
+
+    public boolean update(String oldName, Challenge newChallenge) {
+        for (int i = 0; i < challenges.size(); i++) {
+            if (challenges.get(i).getName().equalsIgnoreCase(oldName)) {
+                challenges.set(i, newChallenge);
                 return fileManager.saveFile();
             }
         }
@@ -41,8 +48,11 @@ public class ChallengeStorage {
     }
 
     public boolean delete(Challenge challenge) {
-        challenges.remove(challenge);
-        fileManager.setChallenges(challenges);
-        return fileManager.saveFile();
+        boolean removed = challenges.removeIf(c ->
+                c.getName().equalsIgnoreCase(challenge.getName()));
+        if (removed) {
+            return fileManager.saveFile();
+        }
+        return false;
     }
 }

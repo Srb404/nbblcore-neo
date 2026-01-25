@@ -6,17 +6,19 @@ import java.io.File;
 import java.util.logging.Logger;
 
 public abstract class FileManager {
-    protected final Logger LOGGER;
+    protected final Logger logger;
     protected final File file;
-    protected String path;
+    protected final String path;
 
     public FileManager(String fileName) {
-        this.LOGGER = NbblcoreNeo.getPlugin().getLogger();
+        this.logger = NbblcoreNeo.getPlugin().getLogger();
         this.path = NbblcoreNeo.getPlugin().getDataFolder().getAbsolutePath() + "/" + fileName;
         this.file = new File(path);
-        if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
     }
 
-    abstract public boolean readFile();
-    abstract public boolean saveFile();
+    public abstract boolean readFile();
+    public abstract boolean saveFile();
 }

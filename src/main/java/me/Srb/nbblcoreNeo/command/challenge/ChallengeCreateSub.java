@@ -19,6 +19,11 @@ public class ChallengeCreateSub extends Subcommand {
                 .executes((sender, args) -> {
                     String name = (String) args.get("name");
 
+                    if (storage.exists(name)) {
+                        sender.sendMessage("§cWyzwanie o nazwie §f" + name + " §cjuż istnieje.");
+                        return;
+                    }
+
                     Challenge challenge = Challenge.builder()
                             .name(name)
                             .build();
