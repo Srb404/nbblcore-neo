@@ -5,11 +5,10 @@ import dev.jorel.commandapi.arguments.StringArgument;
 import me.Srb.nbblcoreNeo.model.Challenge;
 import me.Srb.nbblcoreNeo.storage.challenge.ChallengeStorage;
 
-public class CreateSubcommand implements Subcommand {
-    private final ChallengeStorage storage;
+public class CreateSubcommand extends Subcommand {
 
     public CreateSubcommand(ChallengeStorage storage) {
-        this.storage = storage;
+        super(storage);
     }
 
     @Override

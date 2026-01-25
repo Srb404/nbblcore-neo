@@ -13,12 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class TeamSubcommand implements Subcommand {
-
-    private final ChallengeStorage storage;
+public class TeamSubcommand extends Subcommand {
 
     public TeamSubcommand(ChallengeStorage storage) {
-        this.storage = storage;
+        super(storage);
     }
 
     @Override
@@ -37,7 +35,8 @@ public class TeamSubcommand implements Subcommand {
                     Integer teamId = (Integer) args.get("teamId");
                     Player player = (Player) args.get("teamMember");
 
-                    Challenge challenge = storage.read(challengeName);
+                    Challenge challenge = getOrFail(sender, challengeName);
+                    if (challenge == null) return;
 
                     List<Team> teams = challenge.getTeams();
                     if (teams == null) {

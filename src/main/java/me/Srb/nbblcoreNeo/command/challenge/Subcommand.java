@@ -1,7 +1,24 @@
 package me.Srb.nbblcoreNeo.command.challenge;
 
 import dev.jorel.commandapi.CommandAPICommand;
+import me.Srb.nbblcoreNeo.model.Challenge;
+import me.Srb.nbblcoreNeo.storage.challenge.ChallengeStorage;
+import org.bukkit.command.CommandSender;
 
-public interface Subcommand {
-    CommandAPICommand command();
+public abstract class Subcommand {
+    protected final ChallengeStorage storage;
+
+    protected Subcommand(ChallengeStorage storage) {
+        this.storage = storage;
+    }
+
+    public abstract CommandAPICommand command();
+
+    protected Challenge getOrFail(CommandSender sender, String name) {
+        Challenge challenge = storage.read(name);
+        if (challenge == null) {
+            sender.sendMessage("§cNie znaleziono wyzwania: §f" + name);
+        }
+        return challenge;
+    }
 }

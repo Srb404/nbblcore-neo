@@ -5,11 +5,10 @@ import dev.jorel.commandapi.arguments.StringArgument;
 import me.Srb.nbblcoreNeo.model.Challenge;
 import me.Srb.nbblcoreNeo.storage.challenge.ChallengeStorage;
 
-public class RemoveSubcommand implements Subcommand {
-    private final ChallengeStorage storage;
+public class RemoveSubcommand extends Subcommand {
 
     public RemoveSubcommand(ChallengeStorage storage) {
-        this.storage = storage;
+        super(storage);
     }
 
     @Override
@@ -19,11 +18,8 @@ public class RemoveSubcommand implements Subcommand {
                 .executes((sender, args) -> {
                     String name = (String) args.get("name");
 
-                    Challenge challenge = storage.read(name);
-                    if (challenge == null) {
-                        sender.sendMessage("§cNie znaleziono wyzwania: §f" + name);
-                        return;
-                    }
+                    Challenge challenge = getOrFail(sender, name);
+                    if (challenge == null) return;
 
                     storage.delete(challenge);
                     sender.sendMessage("§aUsunięto wyzwanie: §f" + name);

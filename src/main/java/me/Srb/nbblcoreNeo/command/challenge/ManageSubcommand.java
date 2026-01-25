@@ -9,11 +9,10 @@ import me.Srb.nbblcoreNeo.command.challenge.manage.TimeSubcommand;
 import me.Srb.nbblcoreNeo.model.Challenge;
 import me.Srb.nbblcoreNeo.storage.challenge.ChallengeStorage;
 
-public class ManageSubcommand implements Subcommand {
-    public ChallengeStorage storage;
+public class ManageSubcommand extends Subcommand {
 
     public ManageSubcommand(ChallengeStorage storage) {
-        this.storage = storage;
+        super(storage);
     }
 
     @Override
@@ -29,11 +28,9 @@ public class ManageSubcommand implements Subcommand {
                 .executesPlayer((sender, args) -> {
                     String challengeName = (String) args.get("challengeName");
 
-                    Challenge challenge = storage.read(challengeName);
-                    if (challenge == null) {
-                        sender.sendMessage("§cNie znaleziono wyzwania: " + challengeName);
-                        return;
-                    }
+                    Challenge challenge = getOrFail(sender, challengeName);
+                    if (challenge == null) return;
+
                     new ChallengeManageGUI().open(challenge, sender);
                 });
     }

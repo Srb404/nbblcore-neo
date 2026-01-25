@@ -6,12 +6,10 @@ import me.Srb.nbblcoreNeo.command.challenge.Subcommand;
 import me.Srb.nbblcoreNeo.model.Challenge;
 import me.Srb.nbblcoreNeo.storage.challenge.ChallengeStorage;
 
-public class NameSubcommand implements Subcommand {
-
-    private final ChallengeStorage storage;
+public class NameSubcommand extends Subcommand {
 
     public NameSubcommand(ChallengeStorage storage) {
-        this.storage = storage;
+        super(storage);
     }
 
     @Override
@@ -22,7 +20,9 @@ public class NameSubcommand implements Subcommand {
                     String oldName = (String) args.get("challengeName");
                     String newName = (String) args.get("newChallengeName");
 
-                    Challenge challenge = storage.read(oldName);
+                    Challenge challenge = getOrFail(sender, oldName);
+                    if (challenge == null) return;
+
                     storage.update(oldName, Challenge.builder()
                             .name(newName)
                             .time(challenge.getTime())

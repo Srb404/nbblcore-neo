@@ -6,14 +6,13 @@ import me.Srb.nbblcoreNeo.command.challenge.Subcommand;
 import me.Srb.nbblcoreNeo.model.Challenge;
 import me.Srb.nbblcoreNeo.storage.challenge.ChallengeStorage;
 
-public class TimeSubcommand implements Subcommand {
-
-    private final ChallengeStorage storage;
+public class TimeSubcommand extends Subcommand {
 
     public TimeSubcommand(ChallengeStorage storage) {
-        this.storage = storage;
+        super(storage);
     }
 
+    @Override
     public CommandAPICommand command() {
         return new CommandAPICommand("time")
                 .withArguments(new IntegerArgument("newTime", 1))
@@ -21,7 +20,9 @@ public class TimeSubcommand implements Subcommand {
                     String name = (String) args.get("challengeName");
                     Integer newTime = (Integer) args.get("newTime");
 
-                    Challenge challenge = storage.read(name);
+                    Challenge challenge = getOrFail(sender, name);
+                    if (challenge == null) return;
+
                     storage.update(name, Challenge.builder()
                             .name(challenge.getName())
                             .time(newTime)

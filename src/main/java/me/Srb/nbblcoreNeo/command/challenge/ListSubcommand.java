@@ -9,12 +9,11 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-public class ListSubcommand implements Subcommand {
-    public ChallengeValidator validator = new ChallengeValidator();
-    public ChallengeStorage storage;
+public class ListSubcommand extends Subcommand {
+    private final ChallengeValidator validator = new ChallengeValidator();
 
     public ListSubcommand(ChallengeStorage storage) {
-        this.storage = storage;
+        super(storage);
     }
 
     @Override
