@@ -7,25 +7,53 @@ import java.util.EnumSet;
 
 public class ChallengeValidator {
 
-    public EnumSet<ChallengeRequirement> validate(Challenge challenge) {
+    public static EnumSet<ChallengeRequirement> validate(Challenge challenge) {
         EnumSet<ChallengeRequirement> missing = EnumSet.noneOf(ChallengeRequirement.class);
-        if (challenge.getName() == null || challenge.getName().isEmpty())
+
+        if (challenge.getName() == null || challenge.getName().isEmpty()) {
             missing.add(ChallengeRequirement.NAME_SET);
-        if (challenge.getTime() < 0)
+        }
+
+        if (challenge.getTime() < 0) {
             missing.add(ChallengeRequirement.TIME_SET);
-        if (challenge.getTeams() == null || challenge.getTeams().isEmpty())
+        }
+
+        if (challenge.getTeams() == null || challenge.getTeams().isEmpty()) {
             missing.add(ChallengeRequirement.TEAMS_DEFINED);
-        else {
+        } else {
             for (Team team : challenge.getTeams()) {
-                if (team.getPlayers() == null || team.getPlayers().isEmpty()) missing.add(ChallengeRequirement.TEAMS_HAS_PLAYERS);
-                if (team.getStartLocation() == null) missing.add(ChallengeRequirement.TEAMS_HAS_START);
-                if (team.getEndLocation() == null) missing.add(ChallengeRequirement.TEAMS_HAS_END);
+                if (team == null) {
+                    continue;
+                }
+                if (team.getPlayers() == null || team.getPlayers().isEmpty()) {
+                    missing.add(ChallengeRequirement.TEAMS_HAS_PLAYERS);
+                }
+                if (team.getStartLocation() == null) {
+                    missing.add(ChallengeRequirement.TEAMS_HAS_START);
+                }
+                if (team.getEndLocation() == null) {
+                    missing.add(ChallengeRequirement.TEAMS_HAS_END);
+                }
             }
         }
+
         return missing;
     }
 
-    public boolean isReady(Challenge challenge) {
+    public static boolean isReady(Challenge challenge) {
         return validate(challenge).isEmpty();
+    }
+
+    public static String formatMissing(EnumSet<ChallengeRequirement> missing) {
+        if (missing.isEmpty()) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (ChallengeRequirement req : missing) {
+            sb.append(req.getDescription()).append(", ");
+        }
+        sb.setLength(sb.length() - 2);
+        return sb.toString();
     }
 }

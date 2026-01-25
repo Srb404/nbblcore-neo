@@ -38,23 +38,18 @@ public class ChallengeManageTeamSub extends Subcommand {
                     Challenge challenge = getOrFail(sender, challengeName);
                     if (challenge == null) return;
 
-                    List<Team> teams = challenge.getTeams();
-                    if (teams == null) {
-                        teams = new ArrayList<>();
-                    }
+                    List<Team> teams = new ArrayList<>(
+                            challenge.getTeams() != null ? challenge.getTeams() : List.of()
+                    );
 
                     while (teams.size() <= teamId) {
                         teams.add(null);
                     }
 
                     Team team = teams.get(teamId);
-                    List<UUID> players;
-
-                    if (team != null && team.getPlayers() != null) {
-                        players = new ArrayList<>(team.getPlayers());
-                    } else {
-                        players = new ArrayList<>();
-                    }
+                    List<UUID> players = new ArrayList<>(
+                            team != null && team.getPlayers() != null ? team.getPlayers() : List.of()
+                    );
 
                     if (players.contains(player.getUniqueId())) {
                         sender.sendMessage("§cTen gracz już jest w tej drużynie.");
@@ -63,17 +58,13 @@ public class ChallengeManageTeamSub extends Subcommand {
 
                     players.add(player.getUniqueId());
 
-                    Team newTeam = Team.builder()
-                            .players(players)
-                            .startLocation(team != null ? team.getStartLocation() : null)
-                            .endLocation(team != null ? team.getEndLocation() : null)
-                            .build();
+                    Team newTeam = (team != null)
+                            ? team.toBuilder().players(players).build()
+                            : Team.builder().players(players).build();
 
                     teams.set(teamId, newTeam);
 
-                    boolean success = storage.update(challengeName, Challenge.builder()
-                            .name(challenge.getName())
-                            .time(challenge.getTime())
+                    boolean success = storage.update(challengeName, challenge.toBuilder()
                             .teams(teams)
                             .build());
 

@@ -13,8 +13,14 @@ public record SerializableLocation(
         float pitch
 ) {
     public static SerializableLocation from(Location loc) {
+        if (loc == null) {
+            return null;
+        }
+        World w = loc.getWorld();
+        String worldName = (w != null) ? w.getName() : "world";
+
         return new SerializableLocation(
-                loc.getWorld().getName(),
+                worldName,
                 loc.getX(),
                 loc.getY(),
                 loc.getZ(),
@@ -25,6 +31,9 @@ public record SerializableLocation(
 
     public Location toBukkit() {
         World w = Bukkit.getWorld(world);
+        if (w == null) {
+            return null;
+        }
         return new Location(w, x, y, z, yaw, pitch);
     }
 }

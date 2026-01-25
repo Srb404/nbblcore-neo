@@ -23,10 +23,8 @@ public class ChallengeManageNameSub extends Subcommand {
                     Challenge challenge = getOrFail(sender, oldName);
                     if (challenge == null) return;
 
-                    boolean success = storage.update(oldName, Challenge.builder()
+                    boolean success = storage.update(oldName, challenge.toBuilder()
                             .name(newName)
-                            .time(challenge.getTime())
-                            .teams(challenge.getTeams())
                             .build()
                     );
                     sendResult(sender, success, "§aZmieniono nazwę wyzwania §7" + oldName + "§a na §f" + newName);

@@ -11,7 +11,6 @@ import org.bukkit.command.CommandSender;
 import java.util.List;
 
 public class ChallengeListSub extends Subcommand {
-    private final ChallengeValidator validator = new ChallengeValidator();
 
     public ChallengeListSub(ChallengeStorage storage) {
         super(storage);
@@ -46,14 +45,25 @@ public class ChallengeListSub extends Subcommand {
 
         sender.sendMessage(" §8• §7Czas trwania: " + time);
 
-        if (validator.isReady(challenge)) sender.sendMessage(" §8• §7Status: §aGOTOWE");
-        else {
+        if (ChallengeValidator.isReady(challenge)) {
+            sender.sendMessage(" §8• §7Status: §aGOTOWE");
+        } else {
             sender.sendMessage(" §8• §7Status: §cNIEGOTOWE");
-            sender.sendMessage(" §8• §7Problemy: §c" + validator.validate(challenge));
+            String problems = ChallengeValidator.formatMissing(ChallengeValidator.validate(challenge));
+            sender.sendMessage(" §8• §7Problemy: §c" + problems);
+        }
+
+        List<Team> teams = challenge.getTeams();
+        if (teams == null) {
+            return;
         }
 
         int index = 1;
-        for (Team team : challenge.getTeams()) {
+        for (Team team : teams) {
+            if (team == null) {
+                index++;
+                continue;
+            }
             printTeam(sender, team, index++);
         }
     }

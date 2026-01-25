@@ -7,7 +7,7 @@ import lombok.Singular;
 import java.util.List;
 
 @Getter
-@Builder
+@Builder(toBuilder = true)
 public class Challenge {
 
     private String name;

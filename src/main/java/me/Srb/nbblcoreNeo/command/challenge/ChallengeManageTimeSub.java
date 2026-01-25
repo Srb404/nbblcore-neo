@@ -23,10 +23,8 @@ public class ChallengeManageTimeSub extends Subcommand {
                     Challenge challenge = getOrFail(sender, name);
                     if (challenge == null) return;
 
-                    boolean success = storage.update(name, Challenge.builder()
-                            .name(challenge.getName())
+                    boolean success = storage.update(name, challenge.toBuilder()
                             .time(newTime)
-                            .teams(challenge.getTeams())
                             .build()
                     );
                     sendResult(sender, success, "§aZmieniono czas wyzwania na: §f" + newTime);
